@@ -3,7 +3,14 @@
 
 <head>
     <title>firstnews.ir</title>
-    <meta http-equiv="refresh" content="20" />
+    <style>
+        #body {
+            direction: rtl;
+        }
+    </style>
+</head>
+
+<body id="body">
     <?php
     error_reporting(0);
     //rss bankmarkazi bekhater ndashtane title monaseb (rss title) dar line 20 
@@ -24,10 +31,6 @@
     echo $RSSout->channel->item->pubDate;
     echo $RSSout->channel->itemdescription;
     ?>
-</head>
-
-<body>
-
 </body>
 
 </html>
