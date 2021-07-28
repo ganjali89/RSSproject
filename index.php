@@ -1,36 +1,128 @@
-<!DOCTYPE html>
-<html lang="fa-IR">
+<html>
 
 <head>
-    <title>firstnews.ir</title>
     <style>
-        #body {
+        #span
+        {
+            text-align:left
+        }
+
+        body {
+            font-family: Vazir;
             direction: rtl;
+        }
+
+        .news-link {
+            border-style: solid;
+            border-color: lightgray;
+            border-width: 0px 0px 1px 0px;
+            text-decoration: none;
+        }
+
+        .news-link:hover {
+            color: rgba(255, 188, 4, 0.685);
+        }
+
+        @font-face {
+            font-family: Vazir;
+            src: url('./fonts/Vazir.eot');
+            src: url('./fonts/Vazir.eot?#iefix') format('embedded-opentype'),
+                url('./fonts/Vazir.woff') format('woff'),
+                url('./fonts/Vazir.ttf') format('truetype');
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: Vazir;
+            src: url('./fonts/Vazir-Bold.eot');
+            src: url('./fonts/Vazir-Bold.eot?#iefix') format('embedded-opentype'),
+                url('./fonts/Vazir-Bold.woff') format('woff'),
+                url('./fonts/Vazir-Bold.ttf') format('truetype');
+            font-weight: bold;
+        }
+
+        @font-face {
+            font-family: Vazir;
+            src: url('./fonts/Vazir-Light.eot');
+            src: url('./fonts/Vazir-Light.eot?#iefix') format('embedded-opentype'),
+                url('./fonts/Vazir-Light.woff') format('woff'),
+                url('./fonts/Vazir-Light.ttf') format('truetype');
+            font-weight: 300;
         }
     </style>
 </head>
-
-<body id="body">
+<?php
+$cat = $_GET['cat'] ?? 0;
+define('CAT_GLOBAL', '0');
+define('CAT_SPORT', '1');
+$categories = [
+    CAT_GLOBAL => 'عمومی',
+    CAT_SPORT => 'ورزشی',
+];
+?>
+<body>
+    <form action="" method="get">
+        <select name="cat">
+            <?php 
+            foreach ($categories as $key => $value) {
+            ?>
+            <option value="<?php echo $key;?>" <?php if($cat == $key){echo 'selected';}?>><?php echo $value;?></option>
+            <?php 
+            }
+            ?>
+        </select>
+        <button type="submit">بارگذاری خبر</button>
+    </form>
     <?php
-    error_reporting(0);
-    //rss bankmarkazi bekhater ndashtane title monaseb (rss title) dar line 20 
-
-    $RSSout_array = ["https://www.sena.ir/rss", "https://www.asriran.com/fa/rss/allnews", "https://fararu.com/fa/rss/allnews", "https://www.irna.ir/rss", "https://www.farsnews.ir/rss", "https://khabarfarsi.com/rss/top", "https://www.tabnak.ir/fa/rss/allnews", "https://www.mehrnews.com/rss", "https://www.iribnews.ir/fa/rss/allnews"];
-    foreach ($RSSout_array as $RSSout_url) {
-        $RSSout = simplexml_load_file($RSSout_url);
-        echo '<h1>' . $RSSout->channel->title . '</h1>';
-        echo $RSSout->channel->item->enclosure;
-        echo '<h2><a href="' . $RSSout->channel->item->link . '">' . $RSSout->channel->item->title . "</a></h2>";
-        echo $RSSout->channel->item->pubDate;
-        echo $RSSout->channel->itemdescription;
+    /*function get_content($URL)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $URL);
+        $data = curl_exec($ch);
+        curl_close($ch);
+        return $data;
+    }*/
+    
+    switch (intval($cat)) {
+        case CAT_GLOBAL: 
+            $rss_urls = [
+                'مهر' => 'https://www.mehrnews.com/rss',
+                'فارس' => 'https://www.farsnews.ir/rss',
+                //'تسنیم' => 'https://www.tasnimnews.com/fa/rss/feed/0/8/0/',
+                // 'ایرنا' => 'https://www.irna.ir/rss',
+                // 'تابناک' => 'https://www.tabnak.ir/fa/rss/1',
+                // 'خبرفارسی' => 'https://khabarfarsi.com/rss/top',
+                // 'https://www.yjc.news/fa/rss/allnews',
+                // 'ایسنا' => 'https://www.isna.ir/rss',
+                // 'خبرآنلاین' => 'https://www.khabaronline.ir/rss',
+                // 'مشرق' => 'https://www.mashreghnews.ir/rss',
+            ];
+            break;
+        case CAT_SPORT: // varzeshi
+            $rss_urls = [
+                'فارس' => 'https://www.farsnews.ir/rss/sports',
+                'ایرنا' => 'https://www.irna.ir/rss/tp/14'
+            ];
+            break;
     }
-    $RSSout = simplexml_load_file("https://www.tasnimnews.com/fa/rss/feed/0/7/0/%D8%A2%D8%AE%D8%B1%DB%8C%D9%86-%D8%A7%D8%AE%D8%A8%D8%A7%D8%B1-%D8%A7%D8%AE%D8%A8%D8%A7%D8%B1-%D8%B1%D9%88%D8%B2");
-    echo '<h1>' . $RSSout->channel->title . '|خبر گذاری ی تسنیم' . '</h1>';
-    echo $RSSout->channel->item->enclosure;
-    echo '<h2><a href="' . $RSSout->channel->item->link . '">' . $RSSout->channel->item->title . "</a></h2>";
-    echo $RSSout->channel->item->pubDate;
-    echo $RSSout->channel->itemdescription;
+
+    foreach ($rss_urls as $name => $rss_url) {
+        $obj = simplexml_load_file($rss_url);
+        $item = $obj->channel->item[0];
+        $title = (string) $item->title;
+        $link = (string) $item->link;
+        echo '<span>'.(string) $item->pubDate.'</span>';
+        if ($title) {
     ?>
+            <a target="_blank" href="<?php echo $link; ?>" class="news-link">
+                <?php echo $title; ?>
+            </a> <span style="color: red;"><?php echo $name; ?></span></br>
+    <?php
+        }
+    }
+    ?>
+
 </body>
 
 </html>
