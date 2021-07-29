@@ -1,10 +1,11 @@
 <html>
 
 <head>
+    <title></title>
     <style>
-        #span
+        .span
         {
-            text-align:left
+            font-size: small;
         }
 
         body {
@@ -20,7 +21,7 @@
         }
 
         .news-link:hover {
-            color: rgba(255, 188, 4, 0.685);
+            color:cornflowerblue;
         }
 
         @font-face {
@@ -89,14 +90,14 @@ $categories = [
             $rss_urls = [
                 'مهر' => 'https://www.mehrnews.com/rss',
                 'فارس' => 'https://www.farsnews.ir/rss',
-                //'تسنیم' => 'https://www.tasnimnews.com/fa/rss/feed/0/8/0/',
-                // 'ایرنا' => 'https://www.irna.ir/rss',
-                // 'تابناک' => 'https://www.tabnak.ir/fa/rss/1',
-                // 'خبرفارسی' => 'https://khabarfarsi.com/rss/top',
-                // 'https://www.yjc.news/fa/rss/allnews',
-                // 'ایسنا' => 'https://www.isna.ir/rss',
-                // 'خبرآنلاین' => 'https://www.khabaronline.ir/rss',
-                // 'مشرق' => 'https://www.mashreghnews.ir/rss',
+                'تسنیم' => 'https://www.tasnimnews.com/fa/rss/feed/0/8/0/',
+                 'ایرنا' => 'https://www.irna.ir/rss',
+                 'تابناک' => 'https://www.tabnak.ir/fa/rss/1',
+                 'خبرفارسی' => 'https://khabarfarsi.com/rss/top',
+                 'https://www.yjc.news/fa/rss/allnews',
+                 'ایسنا' => 'https://www.isna.ir/rss',
+                 'خبرآنلاین' => 'https://www.khabaronline.ir/rss',
+                 'مشرق' => 'https://www.mashreghnews.ir/rss',
             ];
             break;
         case CAT_SPORT: // varzeshi
@@ -112,7 +113,7 @@ $categories = [
         $item = $obj->channel->item[0];
         $title = (string) $item->title;
         $link = (string) $item->link;
-        echo '<span>'.(string) $item->pubDate.'</span>';
+        echo '<span class="span"><i>'.(string) $item->pubDate.'</i></span>';
         if ($title) {
     ?>
             <a target="_blank" href="<?php echo $link; ?>" class="news-link">
