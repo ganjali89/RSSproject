@@ -75,7 +75,7 @@ $categories = [
         <button type="submit">بارگذاری خبر</button>
     </form>
     <?php
-    /*function get_content($URL)
+    function get_content($URL)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -83,7 +83,7 @@ $categories = [
         $data = curl_exec($ch);
         curl_close($ch);
         return $data;
-    }*/
+    }
     
     switch (intval($cat)) {
         case CAT_GLOBAL: 
