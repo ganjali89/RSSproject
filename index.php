@@ -53,6 +53,7 @@
     </style>
 </head>
 <?php
+error_reporting(0);
 $cat = $_GET['cat'] ?? 0;
 define('CAT_GLOBAL', '0');
 define('CAT_SPORT', '1');
