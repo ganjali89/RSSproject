@@ -114,7 +114,7 @@ $categories = [
         $item = $obj->channel->item[0];
         $title = (string) $item->title;
         $link = (string) $item->link;
-        echo '<span class="span"><i>'.(string) $item->pubDate.'</i></span>';
+        echo '<span class="span">'.(string) $item->pubDate.'</span>';
         if ($title) {
     ?>
             <a target="_blank" href="<?php echo $link; ?>" class="news-link">
