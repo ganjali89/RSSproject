@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(0);
 require __DIR__ . '/vendor/autoload.php';
 $date = jdate();
 ?>
@@ -132,7 +134,7 @@ $categories = [
     <div class="m-3">
         <?php
         foreach ($rss_urls as $name => $rss_url) {
-            $obj = simplexml_load_file($rss_url);
+            $obj = @simplexml_load_file($rss_url);
             $item = $obj->channel->item[0];
             $title = (string) $item->title;
             $link = (string) $item->link;
