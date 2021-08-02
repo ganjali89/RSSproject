@@ -89,20 +89,36 @@ $categories = [
         curl_close($ch);
         return $data;
     }
+    // var_dump($_GET);
+    // var_dump($_REQUEST);
+    // index array
+    // associative array
+    // format 1:
+    // $cat = 0;
+    // if(array_key_exists('cat', $_GET)) {
+    //     $cat = $_GET['cat'];
+    // }
+    // format 2:
+    // $cat = array_key_exists('cat', $_GET) ? $_GET['cat'] : 0;
+    // format 3:
+    // $cat = 0;
+    // if(isset($_GET['cat'])) {
+    //     $cat = $_GET['cat'];
+    // }
 
     switch (intval($cat)) {
         case CAT_GLOBAL: // omoumi
             $rss_urls = [
                 'مهر' => 'https://www.mehrnews.com/rss',
                 'فارس' => 'https://www.farsnews.ir/rss',
-                 'تسنیم' => 'https://www.tasnimnews.com/fa/rss/feed/0/8/0/',
-                 'ایرنا' => 'https://www.irna.ir/rss',
-                 'تابناک' => 'https://www.tabnak.ir/fa/rss/1',
-                 'خبرفارسی' => 'https://khabarfarsi.com/rss/top',
-                 'https://www.yjc.news/fa/rss/allnews',
-                 'ایسنا' => 'https://www.isna.ir/rss',
-                 'خبرآنلاین' => 'https://www.khabaronline.ir/rss',
-                 'مشرق' => 'https://www.mashreghnews.ir/rss',
+                // 'تسنیم' => 'https://www.tasnimnews.com/fa/rss/feed/0/8/0/',
+                // 'ایرنا' => 'https://www.irna.ir/rss',
+                // 'تابناک' => 'https://www.tabnak.ir/fa/rss/1',
+                // 'خبرفارسی' => 'https://khabarfarsi.com/rss/top',
+                // 'https://www.yjc.news/fa/rss/allnews',
+                // 'ایسنا' => 'https://www.isna.ir/rss',
+                // 'خبرآنلاین' => 'https://www.khabaronline.ir/rss',
+                // 'مشرق' => 'https://www.mashreghnews.ir/rss',
             ];
             break;
         case CAT_SPORT: // varzeshi
@@ -120,9 +136,17 @@ $categories = [
             $item = $obj->channel->item[0];
             $title = (string) $item->title;
             $link = (string) $item->link;
+            // pubDate:"Sat, 31 Jul 2021 12:05:48 GMT"
 
             $time = \Morilog\Jalali\CalendarUtils::strftime('l، Y/m/d H:i', strtotime($item->pubDate)); // 1395-02-19
             $time = \Morilog\Jalali\CalendarUtils::convertNumbers($time);
+            // $time = \Morilog\Jalali\CalendarUtils::strftime(
+            //     'Y-m-d H:i',
+            //     strtotime('Sat, 31 Jul 2021 10:05:48 GMT')
+            //); // 1395-02-19
+            // var_dump([$title, $link]);
+            // $title (meghdar darad) == not false == true
+            // $title == '0'
             if ($title) {
         ?>
                 <a target="_blank" title="<?php echo $time; ?>" href="<?php echo $link; ?>" class="news-link">
