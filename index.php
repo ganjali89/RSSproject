@@ -56,9 +56,14 @@ $date = jdate();
 $cat = $_GET['cat'] ?? 0;
 define('CAT_GLOBAL', '0');
 define('CAT_SPORT', '1');
+define('CAT_Political', '2');
+define('CAT_Economical', '3');
+
 $categories = [
     CAT_GLOBAL => 'عمومی',
     CAT_SPORT => 'ورزشی',
+    CAT_Political => 'سیاسی',
+    CAT_Economical => 'اقتصادی',
 ];
 ?>
 
@@ -91,44 +96,55 @@ $categories = [
         curl_close($ch);
         return $data;
     }
-    // var_dump($_GET);
-    // var_dump($_REQUEST);
-    // index array
-    // associative array
-    // format 1:
-    // $cat = 0;
-    // if(array_key_exists('cat', $_GET)) {
-    //     $cat = $_GET['cat'];
-    // }
-    // format 2:
-    // $cat = array_key_exists('cat', $_GET) ? $_GET['cat'] : 0;
-    // format 3:
-    // $cat = 0;
-    // if(isset($_GET['cat'])) {
-    //     $cat = $_GET['cat'];
-    // }
 
     switch (intval($cat)) {
         case CAT_GLOBAL: // omoumi
             $rss_urls = [
                 'مهر' => 'https://www.mehrnews.com/rss',
                 'فارس' => 'https://www.farsnews.ir/rss',
-                // 'تسنیم' => 'https://www.tasnimnews.com/fa/rss/feed/0/8/0/',
-                // 'ایرنا' => 'https://www.irna.ir/rss',
-                // 'تابناک' => 'https://www.tabnak.ir/fa/rss/1',
-                // 'خبرفارسی' => 'https://khabarfarsi.com/rss/top',
-                // 'https://www.yjc.news/fa/rss/allnews',
-                // 'ایسنا' => 'https://www.isna.ir/rss',
-                // 'خبرآنلاین' => 'https://www.khabaronline.ir/rss',
-                // 'مشرق' => 'https://www.mashreghnews.ir/rss',
+                'تسنیم' => 'https://www.tasnimnews.com/fa/rss/feed/0/8/0/',
+                'ایرنا' => 'https://www.irna.ir/rss',
+                'تابناک' => 'https://www.tabnak.ir/fa/rss/1',
+                'خبرفارسی' => 'https://khabarfarsi.com/rss/top',
+                'ایسنا' => 'https://www.isna.ir/rss',
+                'خبرآنلاین' => 'https://www.khabaronline.ir/rss',
+                 'مشرق' => 'https://www.mashreghnews.ir/rss',
             ];
             break;
         case CAT_SPORT: // varzeshi
             $rss_urls = [
                 'فارس' => 'https://www.farsnews.ir/rss/sports',
-                'ایرنا' => 'https://www.irna.ir/rss/tp/14'
+                'ایرنا' => 'https://www.irna.ir/rss/tp/14',
+                'ایسنا' => 'https://www.isna.ir/rss/tp/24',
+                'خبرانلاین' => 'https://www.khabaronline.ir/rss/tp/6',
+                'خبر فارسی' => 'https://khabarfarsi.com/rss/category/2518',
+                'مشرق' => 'https://www.mashreghnews.ir/rss?pl=99',
             ];
             break;
+            case CAT_Political: //CIACI
+                $rss_urls = [
+                    'مشرق' => 'https://www.mashreghnews.ir/rss/tp/2',
+                    'خبرانلاین' => 'https://www.khabaronline.ir/rss/tp/1',
+                    'ایسنا' => 'https://www.isna.ir/rss/tp/14',
+                    'ایرنا' => 'https://www.irna.ir/rss/tp/5',
+                    'خبرفارسی' => 'https://khabarfarsi.com/rss/category/2470',
+                    'تابناک' => 'https://www.tabnak.ir/fa/rss/1/2',
+                    'فارس نیوز' => 'https://www.farsnews.ir/rss/politics',
+                ];
+                break;
+                case CAT_Economical: //eghdesadi
+                    $rss_urls = [
+                          'تابناک' => 'https://www.tabnak.ir/fa/rss/6',
+                          'فارس نیوز' => 'https://www.farsnews.ir/rss/economy',
+                          'ایسنا' => 'https://www.isna.ir/rss/tp/34',
+                          'ایرنا' => 'https://www.irna.ir/rss/tp/20',
+                          'خبرانلاین' => 'https://www.khabaronline.ir/rss/tp/2',
+                          'خبرفارسی' => 'https://khabarfarsi.com/rss/category/2471',
+                          'مشرق' => 'https://www.mashreghnews.ir/rss/tp/16',
+                          
+                    ];
+                    break;
+
     }
     ?>
     <div class="m-3">
@@ -150,7 +166,7 @@ $categories = [
         }
         ?>
     </div>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
