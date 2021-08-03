@@ -83,7 +83,6 @@ $categories = [
                 ?>
             </select>
             <button type="submit" class="btn btn-secondary btn-lg">بارگذاری خبر</button>
-
         </div>
     </form>
     <?php
