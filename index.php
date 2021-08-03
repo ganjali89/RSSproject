@@ -71,7 +71,7 @@ $categories = [
     <form action="" method="get">
         <div class="input-group">
             
-            <select name="cat" class="form-select form-select-sm">
+            <select name="cat" class="form-select form-select-lg">
                 <?php
                 foreach ($categories as $key => $value) {
                 ?>
@@ -82,7 +82,7 @@ $categories = [
                 }
                 ?>
             </select>
-            <button type="submit" class="btn btn-secondary btn-sm">بارگذاری خبر</button>
+            <button type="submit" class="btn btn-secondary btn-lg">بارگذاری خبر</button>
 
         </div>
     </form>
@@ -160,9 +160,9 @@ $categories = [
             $time = \Morilog\Jalali\CalendarUtils::convertNumbers($time);
             if ($title) {
         ?>
-            <a target="_blank" title="<?php echo $time; ?>" href="<?php echo $link; ?>" class="news-link">
+            <a target="_blank" title="<?php echo $time; ?>" href="<?php echo $link; ?>" class="news-link fs-2">
                     <?php echo $title; ?>
-            </a><small class="text-muted"><?php echo $extra; ?> | <?php echo $name; ?></small><br>
+            </a><span class="text-muted fs-4"><?php echo $extra; ?> | <?php echo $name; ?></span><br>
                 
         <?php
             }
