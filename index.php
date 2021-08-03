@@ -82,7 +82,7 @@ $categories = [
                 }
                 ?>
             </select>
-            <button type="submit">بارگذاری خبر</button>
+            <button type="submit" class="btn btn-secondary">بارگذاری خبر</button>
 
         </div>
     </form>
