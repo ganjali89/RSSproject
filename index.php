@@ -71,7 +71,7 @@ $categories = [
     <form action="" method="get">
         <div class="input-group">
             
-            <select name="cat" class="form-select">
+            <select name="cat" class="form-select form-select-sm">
                 <?php
                 foreach ($categories as $key => $value) {
                 ?>
@@ -82,7 +82,7 @@ $categories = [
                 }
                 ?>
             </select>
-            <button type="submit" class="btn btn-secondary">بارگذاری خبر</button>
+            <button type="submit" class="btn btn-secondary btn-sm">بارگذاری خبر</button>
 
         </div>
     </form>
@@ -154,13 +154,16 @@ $categories = [
             $item = $obj->channel->item[0];
             $title = (string) $item->title;
             $link = (string) $item->link;
+            $extra = \Morilog\Jalali\Jalalian::forge(strtotime($item->pubDate))->ago();
+            $extra = \Morilog\Jalali\CalendarUtils::convertNumbers($extra);
             $time = \Morilog\Jalali\CalendarUtils::strftime('l، Y/m/d H:i', strtotime($item->pubDate)); // 1395-02-19
             $time = \Morilog\Jalali\CalendarUtils::convertNumbers($time);
             if ($title) {
         ?>
-                <a target="_blank" title="<?php echo $time; ?>" href="<?php echo $link; ?>" class="news-link">
+            <a target="_blank" title="<?php echo $time; ?>" href="<?php echo $link; ?>" class="news-link">
                     <?php echo $title; ?>
-                </a> <span style="color: gray;"><?php echo $name; ?></span></br>
+            </a><small class="text-muted"><?php echo $extra; ?> | <?php echo $name; ?></small><br>
+                
         <?php
             }
         }
